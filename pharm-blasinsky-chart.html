@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharm Exam 1 — Blasinsky Review Chart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* PA-S Minimalist Dashboard palette */
+    --bg:#f4f1ea;
+    --paper:#fffdf8;
+    --ink:#2b241f;
+    --muted:#8a8177;
+    --line:#3b372f;
+
+    --c-pharm:#EDE8E6;
+    --dark1:#645A4E;      /* pharm's left-border accent + chart title bar */
+    --mauve:#B89D93;      /* column-header band */
+    --taupe2:#D6D7D1;     /* nav pill idle */
+    --taupe3:#D8D1D0;     /* nav pill hover */
+    --dark2:#5D5A4F;      /* highlighted key terms */
+
+    --font-brand:'Cormorant Garamond','Source Serif 4', serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'IBM Plex Sans',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    margin:0;
+    padding:28px 4vw 80px;
+    line-height:1.45;
+  }
+  .top{
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .top h1{
+    font-family:var(--font-brand);
+    font-weight:500;
+    font-size:2.4em;
+    margin:0 0 2px;
+    color:var(--ink);
+  }
+  .top .sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.8em;
+    letter-spacing:.06em;
+    color:var(--muted);
+    text-transform:uppercase;
+  }
+  .intro-note{
+    max-width:820px;
+    margin:14px auto 30px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:14px 18px;
+    font-size:0.92em;
+  }
+  .intro-note strong{color:var(--dark1);}
+  nav.toc{
+    max-width:1000px;
+    margin:0 auto 34px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:14px 18px;
+  }
+  nav.toc div.label{
+    font-family:var(--font-brand);
+    font-weight:600;
+    font-size:1.15em;
+    margin-bottom:8px;
+  }
+  nav.toc a{
+    display:inline-block;
+    margin:2px 10px 2px 0;
+    padding:4px 12px;
+    border-radius:999px;
+    background:var(--taupe2);
+    border:1px solid var(--line);
+    color:var(--ink);
+    text-decoration:none;
+    font-size:0.82em;
+  }
+  nav.toc a:hover{background:var(--taupe3);}
+
+  .chart-wrap{max-width:1400px;margin:0 auto 40px;}
+  table.chart{
+    width:100%;
+    border-collapse:collapse;
+    border:1px solid var(--line);
+    background:var(--paper);
+    border-radius:0;
+  }
+  table.chart th, table.chart td{
+    border:1px solid var(--line);
+    padding:10px 13px;
+    vertical-align:top;
+    text-align:left;
+    font-size:0.88em;
+  }
+  table.chart tr.title-row td{
+    background:var(--dark1);
+    color:var(--paper);
+    text-align:center;
+    font-weight:600;
+    font-size:1.2em;
+    font-family:var(--font-brand);
+    padding:10px;
+  }
+  table.chart tr.col-head td{
+    background:var(--mauve);
+    color:var(--ink);
+    font-weight:700;
+    font-size:0.85em;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  table.chart td.med{
+    background:var(--c-pharm);
+    border-left:4px solid var(--dark1);
+    font-weight:700;
+    min-width:150px;
+  }
+  table.chart td.med .generic{font-weight:400;font-size:0.92em;display:block;margin-top:2px;color:var(--muted);}
+  .sub{color:var(--dark1);font-weight:700;display:block;margin:6px 0 2px;text-transform:uppercase;font-size:0.78em;letter-spacing:.04em;}
+  .sub:first-child{margin-top:0;}
+  .hl{color:var(--dark2);font-weight:600;font-style:italic;}
+  ul.cell-list{margin:2px 0 4px;padding-left:16px;}
+  ul.cell-list li{margin-bottom:3px;}
+  p.cell-p{margin:2px 0 6px;}
+  .pearl-list{margin:0;padding-left:16px;}
+  .pearl-list li{margin-bottom:5px;}
+
+  .doc-table td.cond{background:var(--c-pharm);border-left:4px solid var(--dark1);font-weight:700;min-width:160px;}
+
+  footer{
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75em;
+    color:var(--muted);
+    margin-top:40px;
+  }
+  @media (max-width:760px){
+    table.chart, table.chart thead, table.chart tbody, table.chart th, table.chart td, table.chart tr{display:block;}
+    table.chart tr.title-row td, table.chart tr.col-head{display:none;}
+    table.chart tr:not(.title-row):not(.col-head){border:1px solid var(--line); margin-bottom:10px;}
+    table.chart td{border:none;border-bottom:1px solid #e4ded3;}
+    table.chart td.med{border-bottom:2px solid var(--line);}
+    table.chart td::before{
+      content:attr(data-label);
+      display:block;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:0.68em;
+      text-transform:uppercase;
+      color:var(--dark1);
+      margin-bottom:3px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>Pharm Exam 1 — Blasinsky Review, Chart Edition</h1>
+  <div class="sub">Every question from the Blasinsky Quizlet review, reorganized · Class of 2028 · Fall 2026</div>
+</div>
+
+<div class="intro-note">
+  This turns all <strong>116</strong> Q&A cards from your Blasinsky review into the same med-chart format you already use — nothing was skipped or summarized away. <strong>Bolded</strong> items are hallmarks, pearls, or the specific indication you're most likely to be tested on. Pharm is your toughest subject right now, so every chart follows the same five columns every time — same shape, every time, so your brain doesn't have to re-learn a new layout for every drug.
+</div>
+
+<nav class="toc">
+  <div class="label">Jump to a section</div>
+  <a href="#s1">1. Absorption &amp; Distribution</a>
+  <a href="#s2">2. Metabolism &amp; Elimination</a>
+  <a href="#s3">3. Half-Life &amp; Steady State</a>
+  <a href="#s4">4. Antibiotic PK/PD &amp; Resistance</a>
+  <a href="#s5">5. Drug-of-Choice Quick Reference</a>
+  <a href="#s6">6. Penicillins</a>
+  <a href="#s7">7. Cephalosporins</a>
+  <a href="#s8">8. Carbapenems &amp; Monobactam</a>
+  <a href="#s9">9. Vancomycin &amp; Glycopeptides</a>
+  <a href="#s10">10. Daptomycin &amp; Linezolid</a>
+  <a href="#s11">11. Tetracyclines</a>
+  <a href="#s12">12. Aminoglycosides</a>
+  <a href="#s13">13. Macrolides</a>
+  <a href="#s14">14. Clindamycin</a>
+  <a href="#s15">15. Sulfonamides</a>
+  <a href="#s16">16. Topical Antibiotics</a>
+</nav>
+
+<!-- ============ SECTION 1 ============ -->
+<div class="chart-wrap" id="s1">
+<table class="chart">
+<tr class="title-row"><td colspan="5">1. Absorption &amp; Distribution Basics</td></tr>
+<tr class="col-head"><td>Concept</td><td>What It Means</td><td>How Drugs Move</td><td>Key Numbers / Factors</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Concept">Therapeutic Index / Window</td>
+<td data-label="What It Means">The gap between the <span class="hl">therapeutic concentration</span> and the <span class="hl">toxic concentration</span>.</td>
+<td data-label="How Drugs Move">A <strong>small</strong> window = little room for error before toxicity. A <strong>large</strong> window = more forgiving dosing.</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Narrow TI drugs need level monitoring</strong> (think vancomycin, aminoglycosides later in this guide).</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Passive Diffusion</td>
+<td data-label="What It Means"><span class="hl">High → low concentration</span>, no energy needed.</td>
+<td data-label="How Drugs Move">This is the <strong>primary way drugs are absorbed AND distributed</strong> throughout the body.</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Default answer if a question just says "how does the drug get into the cell/blood."</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Active Transport</td>
+<td data-label="What It Means">A <span class="hl">substrate</span> carries the drug across the membrane.</td>
+<td data-label="How Drugs Move"><strong>Energy required</strong>, and it's <strong>saturable</strong> — only so much substrate to go around.</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>"Saturable" is the buzzword that tells you it's active transport, not passive diffusion.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Bioavailability</td>
+<td data-label="What It Means">The <span class="hl">% of a dose</span> that actually reaches systemic circulation.</td>
+<td data-label="How Drugs Move">Affected by: <strong>first-pass metabolism</strong>, drug solubility, drug stability.</td>
+<td data-label="Key Numbers">IV = 100% bioavailable by definition.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Prodrugs are designed specifically to <strong>increase</strong> bioavailability.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">First-Pass Metabolism</td>
+<td data-label="What It Means">Oral drugs absorbed via the GI tract go straight through the <span class="hl">portal circulation → liver</span> before ever reaching the rest of the body.</td>
+<td data-label="How Drugs Move">Can be <strong>highly metabolized</strong> before the drug ever "counts."</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>This is exactly why some drugs need much higher oral doses than IV doses.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Factors Affecting Distribution</td>
+<td data-label="What It Means">Lipid solubility, blood flow, binding to plasma proteins, drug structure.</td>
+<td data-label="How Drugs Move">More lipid-soluble + more blood flow to a tissue = drug gets there faster/more.</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Highly protein-bound drugs = only the <strong>free/unbound</strong> fraction is active.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Volume of Distribution (Vd)</td>
+<td data-label="What It Means">A hypothetical number describing the volume of fluid a drug appears to be distributed through.</td>
+<td data-label="How Drugs Move"><strong>Larger Vd = more</strong> distribution out into the tissues (drug is "hiding" outside the blood).</td>
+<td data-label="Key Numbers">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Major storage site for drugs = <strong>adipose tissue</strong>.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 2 ============ -->
+<div class="chart-wrap" id="s2">
+<table class="chart">
+<tr class="title-row"><td colspan="5">2. Metabolism &amp; Elimination</td></tr>
+<tr class="col-head"><td>Concept</td><td>What It Means</td><td>Where / How</td><td>Special Notes</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Concept">Major Site of Metabolism</td>
+<td data-label="What It Means"><span class="hl">Liver</span></td>
+<td data-label="Where/How">CYP450 enzyme system does most of the work.</td>
+<td data-label="Special Notes">CYP450 can be <strong>inhibited or induced</strong> (sped up) by certain drugs → this is the #1 mechanism behind drug interactions.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Drug A inhibits metabolism of Drug B → ↑ levels of Drug B.</strong> This exact logic pattern repeats on the exam.</li><li><strong>Genetics affect CYP450</strong> — yes. Most people are <strong>normal or rapid</strong> metabolizers.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">First-Order Kinetics</td>
+<td data-label="What It Means">Rate of metabolism is <span class="hl">proportional to drug concentration</span>.</td>
+<td data-label="Where/How">A <strong>constant fraction (%)</strong> of the drug is metabolized per unit time.</td>
+<td data-label="Special Notes">Most drugs work this way — including most <strong>elimination</strong>.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>"% metabolized" language in a question = first order.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Zero-Order Kinetics</td>
+<td data-label="What It Means">Rate of metabolism is <span class="hl">constant over time</span>, regardless of concentration.</td>
+<td data-label="Where/How">A <strong>constant amount</strong> is metabolized per unit time — this is <strong>non-linear</strong> kinetics.</td>
+<td data-label="Special Notes">Classic exam example: alcohol, phenytoin at high doses.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>"Amount" (not %) metabolized per unit time = zero order.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Prodrug</td>
+<td data-label="What It Means">Administered <span class="hl">inactive</span>, then activated through liver metabolism.</td>
+<td data-label="Where/How">Designed this way specifically to <strong>increase bioavailability</strong>.</td>
+<td data-label="Special Notes">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>If a drug "needs the liver to work," think prodrug.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Major Site of Elimination</td>
+<td data-label="What It Means"><span class="hl">Kidneys</span></td>
+<td data-label="Where/How">Other elimination routes: lungs, urine, bile, sweat, saliva, tears, milk, stool.</td>
+<td data-label="Special Notes">Elimination usually follows <strong>first order</strong> kinetics.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Creatinine clearance</strong> = estimated renal clearance (i.e., estimated GFR).</li><li>Estimate renal clearance using the <strong>Cockcroft-Gault formula</strong>.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 3 ============ -->
+<div class="chart-wrap" id="s3">
+<table class="chart">
+<tr class="title-row"><td colspan="5">3. Half-Life, Steady State &amp; Loading Dose</td></tr>
+<tr class="col-head"><td>Concept</td><td>Definition</td><td>Relationship / Direction</td><td>Does It Change Time to Steady State?</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Concept">Half-Life (t½)</td>
+<td data-label="Definition">Time required to eliminate <span class="hl">50%</span> of the drug in the body.</td>
+<td data-label="Relationship">↑ renal clearance → <strong>↓ t½</strong> &nbsp;|&nbsp; ↓ renal clearance → <strong>↑ t½</strong></td>
+<td data-label="Steady State">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Renal failure patients will have a <strong>longer</strong> half-life for renally-cleared drugs — this is a very testable "next step: adjust the dose" trap.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Time to Eliminate a Drug</td>
+<td data-label="Definition">It takes <span class="hl"><strong>4–5 half-lives</strong></span> to essentially clear a drug from the body.</td>
+<td data-label="Relationship">—</td>
+<td data-label="Steady State">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Same "4–5" number is used for both clearing AND reaching steady state — easy to mix up, so memorize both together.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Time to Reach Steady State</td>
+<td data-label="Definition">Also <span class="hl"><strong>4–5 half-lives</strong></span>.</td>
+<td data-label="Relationship"><strong>Rate of infusion does NOT affect time to steady state.</strong><br><strong>Dose does NOT affect time to steady state.</strong></td>
+<td data-label="Steady State">Steady state timing depends on <strong>half-life only</strong>, not on how much or how fast you give the drug.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>This is a classic distractor trap: "increase the infusion rate to reach steady state faster" is <strong>wrong</strong>.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Loading Dose</td>
+<td data-label="Definition">A <span class="hl">higher dose</span> given at treatment initiation.</td>
+<td data-label="Relationship">Still takes the usual 4–5 half-lives to reach <em>true</em> steady state, but gets the initial concentration <strong>closer to the eventual steady-state level faster</strong>.</td>
+<td data-label="Steady State"><strong>Decreases time to therapeutic effect</strong> (not time to true steady state).</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Loading dose = "get to a working level fast," not "get to steady state fast." Know the distinction — it's a classic exam trap.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 4 ============ -->
+<div class="chart-wrap" id="s4">
+<table class="chart">
+<tr class="title-row"><td colspan="5">4. Antibiotic Pharmacodynamics &amp; Resistance</td></tr>
+<tr class="col-head"><td>Concept</td><td>Definition</td><td>Goal / Target</td><td>Examples</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Concept">Time-Dependent Antibiotics</td>
+<td data-label="Definition">Efficacy correlates with <span class="hl">time above the MIC</span>, not peak concentration.</td>
+<td data-label="Goal">Goal: stay above MIC for <strong>~60% of the dosing interval</strong>. Once concentration exceeds <strong>4x the MIC</strong>, you get <strong>no additional killing benefit</strong> (not a linear relationship).</td>
+<td data-label="Examples">Beta-lactams (penicillins, cephalosporins), vancomycin.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Think "frequent dosing / continuous exposure" for this class.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Concentration-Dependent Antibiotics</td>
+<td data-label="Definition">Efficacy correlates with the <span class="hl">peak concentration</span>.</td>
+<td data-label="Goal">Optimal when peak is <strong>10x the MIC</strong>.</td>
+<td data-label="Examples">Aminoglycosides.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Think "one big dose, high peak" for this class — opposite strategy from time-dependent drugs.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Post-Antibiotic Effect</td>
+<td data-label="Definition">Continued killing of the organism <span class="hl">even after</span> antibiotic concentration falls below the MIC.</td>
+<td data-label="Goal">—</td>
+<td data-label="Examples">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>This is part of why some antibiotics can be dosed less frequently than their half-life alone would suggest.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Concept">Mechanisms of Bacterial Resistance</td>
+<td data-label="Definition">Three big buckets:</td>
+<td data-label="Goal"><ul class="cell-list"><li><strong>Prevention</strong> of the antibiotic from reaching its target site</li><li><strong>Alteration</strong> of the target site</li><li><strong>Inactivation</strong> of the antibiotic (e.g., beta-lactamase enzymes)</li></ul></td>
+<td data-label="Examples">Beta-lactamase production is the classic "inactivation" example — see the Penicillins chart.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>If a question mentions an enzyme "chewing up" the drug, that's <strong>inactivation</strong>.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 5 ============ -->
+<div class="chart-wrap" id="s5">
+<table class="chart doc-table">
+<tr class="title-row"><td colspan="4">5. Drug-of-Choice (DOC) Quick Reference</td></tr>
+<tr class="col-head"><td>Condition</td><td>Drug of Choice</td><td>Class / Route</td><td>PEARLS</td></tr>
+
+<tr><td class="cond" data-label="Condition">Syphilis</td><td data-label="DOC"><span class="hl">Penicillin G benzathine</span> (Bicillin-LA)</td><td data-label="Class/Route">Penicillin — <strong>IM 2.4 million units x 1</strong></td><td data-label="Pearls">The single-dose IM regimen is a very testable specific number.</td></tr>
+<tr><td class="cond" data-label="Condition">Gonorrhea (gonococcal)</td><td data-label="DOC"><span class="hl">Ceftriaxone</span></td><td data-label="Class/Route">3rd-gen cephalosporin</td><td data-label="Pearls">Also the DOC specifically for gonorrhea among the cephalosporins.</td></tr>
+<tr><td class="cond" data-label="Condition">MRSA</td><td data-label="DOC"><span class="hl">Vancomycin</span></td><td data-label="Class/Route">Glycopeptide</td><td data-label="Pearls">Alternatives if needed: Daptomycin, Linezolid (see Section 10).</td></tr>
+<tr><td class="cond" data-label="Condition">C. difficile colitis</td><td data-label="DOC"><span class="hl">Vancomycin (oral)</span></td><td data-label="Class/Route">Glycopeptide — PO only for this indication</td><td data-label="Pearls">IV vancomycin does NOT treat C. diff — has to be oral to work in the gut.</td></tr>
+<tr><td class="cond" data-label="Condition">Lyme disease</td><td data-label="DOC"><span class="hl">Doxycycline</span></td><td data-label="Class/Route">Tetracycline</td><td data-label="Pearls">IV cephalosporin alternative in the hospital setting: cefuroxime (per review, flagged as uncertain — double check).</td></tr>
+<tr><td class="cond" data-label="Condition">Chlamydia trachomatis</td><td data-label="DOC"><span class="hl">Azithromycin</span></td><td data-label="Class/Route">Macrolide — 1g single dose</td><td data-label="Pearls">Doxycycline is the alternative agent for genital chlamydial infections.</td></tr>
+<tr><td class="cond" data-label="Condition">Giardiasis</td><td data-label="DOC"><span class="hl">Metronidazole</span></td><td data-label="Class/Route">—</td><td data-label="Pearls">—</td></tr>
+<tr><td class="cond" data-label="Condition">Meningitis</td><td data-label="DOC"><span class="hl">Cefotaxime and Ceftriaxone</span></td><td data-label="Class/Route">3rd-gen cephalosporins</td><td data-label="Pearls">Used empirically in hospitalized patients.</td></tr>
+<tr><td class="cond" data-label="Condition">Diverticulitis</td><td data-label="DOC"><span class="hl">Metronidazole + a cephalosporin</span></td><td data-label="Class/Route">Combination therapy</td><td data-label="Pearls">Covers anaerobes (metronidazole) plus gram-negatives (cephalosporin).</td></tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 6 ============ -->
+<div class="chart-wrap" id="s6">
+<table class="chart">
+<tr class="title-row"><td colspan="5">6. Penicillins &amp; Beta-Lactamase Inhibitor Combos</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>Class / Notes</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Beta-Lactams — General <span class="generic">(all penicillins &amp; cephalosporins)</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Inhibit <span class="hl">cell wall synthesis</span> by binding penicillin-binding proteins (PBPs) → cell lysis. <strong>Bactericidal.</strong></td>
+<td data-label="Indication">Only active against <strong>actively growing organisms</strong> that make a peptidoglycan cell wall.</td>
+<td data-label="Class/Notes"><strong>Inactive against fungi and mycobacteria</strong> (no cell wall to attack).</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>The 4 beta-lactam classes: <strong>penicillin, cephalosporin, monobactam, carbapenem</strong>.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Antistaphylococcal Penicillins <span class="generic">Oxacillin, Nafcillin, Cloxacillin, Dicloxacillin</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Same beta-lactam cell-wall mechanism, built to resist staph's penicillinase enzyme.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Active against <span class="hl">penicillinase-producing Staph aureus</span>.</td>
+<td data-label="Class/Notes">Natural penicillins (basic).</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>These are your "MSSA" drugs — the ones that beat plain penicillin's biggest weakness.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Amoxicillin/Clavulanic Acid <span class="generic">Augmentin</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Clavulanic acid is a beta-lactamase inhibitor added to protect amoxicillin.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Beta-lactamase producing <span class="hl">H. influenzae, N. gonorrhoeae, E. coli, Klebsiella, staphylococcal</span> species.</td>
+<td data-label="Class/Notes">Aminopenicillin + BLI</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>BLIs "resemble beta-lactams but have no real antimicrobial activity of their own" — <strong>suicide inhibition</strong>: the beta-lactamase enzyme preferentially attacks the clavulanic acid/sulbactam instead of the real antibiotic, protecting it.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Ampicillin/Sulbactam <span class="generic">Unasyn</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Sulbactam = beta-lactamase inhibitor, same suicide-inhibition mechanism as above.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Beta-lactamase producing <span class="hl">Staph aureus, H. influenzae, Bacteroides fragilis (anaerobe)</span>, and most strains of <span class="hl">E. coli</span>.</td>
+<td data-label="Class/Notes">Aminopenicillin + BLI</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Bacteroides fragilis coverage is the distinguishing feature</strong> vs. Augmentin on this list.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Piperacillin/Tazobactam <span class="generic">Zosyn</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Beta-lactam + beta-lactamase inhibitor combo.</td>
+<td data-label="Indication"><span class="sub">Class</span><span class="hl">Antipseudomonal penicillin</span>.</td>
+<td data-label="Class/Notes">Broad gram-negative coverage including Pseudomonas.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>"Zosyn" = the go-to broad-spectrum hospital combo — remember it as the <strong>antipseudomonal</strong> penicillin.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 7 ============ -->
+<div class="chart-wrap" id="s7">
+<table class="chart">
+<tr class="title-row"><td colspan="5">7. Cephalosporins by Generation</td></tr>
+<tr class="col-head"><td>Med / Generation</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and Cross-Reactivity</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">1st Gen <span class="generic">Cephalexin (Keflex)</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Common <strong>oral</strong> 1st-gen cephalosporin.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Used for <span class="hl">cellulitis</span>.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Cefazolin</strong> = DOC for <strong>surgical prophylaxis</strong> (also 1st gen, IV).</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">2nd Gen <span class="generic">Cefoxitin, Cefotetan</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Anaerobic coverage added compared to 1st gen.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Cover <span class="hl">anaerobes (Bacteroides)</span> — the key differentiator for this generation.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>If a question mentions Bacteroides + a "cef" drug, think <strong>2nd generation</strong>.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Oral 3rd Gen <span class="generic">Cefpodoxime (Vantin), Cefdinir (Omnicef)</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Community-acquired infections, oral outpatient use.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Otitis media, pharyngitis/tonsillitis, sinusitis, bronchitis, pneumonia.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>These are your "everyday outpatient" oral 3rd-gens.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">IV 3rd Gen <span class="generic">Cefotaxime, Ceftriaxone</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Empiric hospital therapy, broad gram-negative coverage.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Empiric treatment of <strong>meningitis</strong> in hospitalized patients. Also used empirically for <strong>community-acquired pneumonia (CAP)</strong> — <strong>combined with azithromycin</strong> to cover atypicals. Ceftriaxone alone is the DOC for <strong>gonorrhea</strong>.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Cefotaxime/Ceftriaxone + azithromycin is a very testable combo — <strong>the "why azithromycin" is atypical coverage</strong> (Legionella, Mycoplasma, Chlamydia).</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Antipseudomonal 3rd/4th Gen <span class="generic">Ceftazidime, Cefoperazone, Cefepime</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Broadest gram-negative coverage in this class.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Active against <span class="hl">Pseudomonas</span>. Used for <strong>hospital-acquired pneumonia</strong>. <strong>Cefepime is used empirically for febrile neutropenia</strong> — add vancomycin if MRSA is a concern.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Cefepime + vanco</strong> = classic febrile neutropenia combo when MRSA is suspected.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Class-Wide Allergy Notes</td>
+<td data-label="MOA">—</td>
+<td data-label="Indication">—</td>
+<td data-label="ADE/CIs"><span class="sub">CIs</span><strong>Avoid all beta-lactams</strong> in patients with a history of <span class="hl">immediate or accelerated reactions</span> to penicillins or cephalosporins.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Cross-reactivity risk between a penicillin and a cephalosporin depends on how <strong>similar their side chains</strong> are — not a blanket "all PCN-allergic patients react to all cephalosporins" rule.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 8 ============ -->
+<div class="chart-wrap" id="s8">
+<table class="chart">
+<tr class="title-row"><td colspan="5">8. Carbapenems &amp; Monobactam</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>Notable Gaps</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Imipenem/Cilastatin <span class="generic">Primaxin</span> &amp; Meropenem <span class="generic">Merrem</span></td>
+<td data-label="MOA"><span class="sub">Class</span>Carbapenems — <strong>the broadest spectrum of all beta-lactams</strong>.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Cover <span class="hl">gram-positive, gram-negative, AND anaerobes</span> — essentially everything.</td>
+<td data-label="Notable Gaps">None major — this is the "big gun" class.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Think "last-line, covers almost everything" whenever you see these two names.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Ertapenem <span class="generic">Invanz</span></td>
+<td data-label="MOA"><span class="sub">Class</span>Carbapenem, but narrower.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Broad, but <strong>not as broad</strong> as imipenem/meropenem.</td>
+<td data-label="Notable Gaps"><strong>Does NOT cover Pseudomonas</strong> — the single most important distinguishing fact.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Exam trap: picking ertapenem for a Pseudomonas infection. Don't.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Aztreonam</td>
+<td data-label="MOA"><span class="sub">Class</span>The <strong>only monobactam</strong> antibiotic.</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-negative only</span> (including Pseudomonas) — <strong>no gram-positive, no anaerobic coverage</strong>.</td>
+<td data-label="Notable Gaps">No gram-positive or anaerobic activity.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Useful in patients with a <strong>true penicillin allergy</strong> who still need gram-negative coverage — low cross-reactivity with other beta-lactams.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 9 ============ -->
+<div class="chart-wrap" id="s9">
+<table class="chart">
+<tr class="title-row"><td colspan="5">9. Vancomycin &amp; Glycopeptides</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and Monitoring</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Vancomycin</td>
+<td data-label="MOA"><span class="sub">Class</span>Glycopeptide.</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-positive only</span> — enterococcus, Staph aureus, <strong>MRSA</strong>, Staph epidermidis, MRSE.<br><span class="sub">DOC For</span><strong>MRSA</strong> and (oral form) <strong>C. diff colitis</strong>.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span><strong>Ototoxicity, nephrotoxicity.</strong><br><span class="sub">Infusion Reaction</span><strong>Red man syndrome</strong> — caused by <span class="hl">histamine release</span> when given IV too rapidly. <strong>NOT a true allergic reaction.</strong></td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Must monitor serum levels</strong> — narrow therapeutic index.</li><li>IV vanco treats systemic MRSA; <strong>oral</strong> vanco treats C. diff (stays in the gut, isn't absorbed).</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Oritavancin &amp; Dalbavancin</td>
+<td data-label="MOA"><span class="sub">Class</span>Related glycopeptides.</td>
+<td data-label="Indication">—</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Very long half-lives</strong> — the single defining fact to remember about these two.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 10 ============ -->
+<div class="chart-wrap" id="s10">
+<table class="chart">
+<tr class="title-row"><td colspan="5">10. MRSA/VRE Alternatives: Daptomycin &amp; Linezolid</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Daptomycin <span class="generic">Cubicin</span></td>
+<td data-label="MOA"><span class="sub">Use</span>Alternative to vancomycin.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Used for <span class="hl">MRSA or VRE</span>.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span><strong>Myopathy</strong> — causes an <strong>increase in Creatinine Phosphokinase (CPK)</strong>. Get a <strong>baseline CPK</strong> before starting.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>CANNOT treat pneumonia</strong> — it binds to and is inactivated by pulmonary surfactant. This is one of the single most testable facts in this whole review.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Linezolid</td>
+<td data-label="MOA"><span class="sub">Use</span>Alternative to vancomycin.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Used to treat <span class="hl">VRE and MRSA</span>.</td>
+<td data-label="ADE/CIs"><span class="sub">DDI</span><strong>Serotonin syndrome</strong> (hypertension, hyperthermia, myoclonus, mental status changes) when combined with <span class="hl">SSRIs</span> (Zoloft, Prozac, Lexapro) or other serotonergic drugs.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Why: Linezolid is a <strong>reversible, nonselective MAOI</strong> — that's the mechanism behind the serotonin syndrome risk.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 11 ============ -->
+<div class="chart-wrap" id="s11">
+<table class="chart">
+<tr class="title-row"><td colspan="5">11. Tetracyclines</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Doxycycline</td>
+<td data-label="MOA"><span class="sub">Class</span>Tetracycline.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>Community-acquired pneumonia (especially if <strong>PCN allergy</strong>); nongonococcal urethritis (Chlamydia trachomatis); alternative agent for genital chlamydial infections; Community-Acquired <strong>MRSA</strong> skin infections. Also one of the <strong>DOCs for Lyme disease</strong>.</td>
+<td data-label="ADE/CIs">See class-wide ADEs to the right — →</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>IV cephalosporin alternative for Lyme in the hospital: <strong>cefuroxime</strong> (flagged uncertain in the original review — worth confirming).</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Tetracyclines — Class-Wide</td>
+<td data-label="MOA"><span class="sub">Chelation</span>Tetracyclines <span class="hl">chelate cations</span> — calcium, magnesium, iron, zinc.</td>
+<td data-label="Indication">Chelation causes <strong>non-absorption</strong> of the drug.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span><ul class="cell-list"><li>GI distress (dysphagia, odynophagia)</li><li><strong>Phototoxicity</strong> — exaggerated sunburn reaction/rash after sun exposure</li><li>Vestibular problems: dizziness (especially <strong>minocycline</strong>)</li></ul></td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Do not take with dairy, antacids, or iron supplements</strong> — this is the practical patient-counseling version of the chelation fact.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 12 ============ -->
+<div class="chart-wrap" id="s12">
+<table class="chart">
+<tr class="title-row"><td colspan="5">12. Aminoglycosides</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and Monitoring</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Aminoglycosides <span class="generic">class</span></td>
+<td data-label="MOA"><span class="sub">Spectrum</span><span class="hl">Broad</span> spectrum of activity.</td>
+<td data-label="Indication"><span class="sub">Use</span>IV aminoglycosides are almost always used <strong>in combination</strong> with another antibiotic, not alone.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span><strong>Ototoxicity</strong> (hearing loss — may be <strong>permanent</strong>) and <strong>nephrotoxicity</strong>.<br><span class="sub">Elimination</span><strong>Renal</strong> excretion.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Must monitor serum levels for efficacy</strong> — this is a concentration-dependent class (see Section 4): the goal is a <strong>peak = 10x MIC</strong>.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 13 ============ -->
+<div class="chart-wrap" id="s13">
+<table class="chart">
+<tr class="title-row"><td colspan="5">13. Macrolides</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Macrolides <span class="generic">Erythromycin, Azithromycin, Clarithromycin</span></td>
+<td data-label="MOA"><span class="sub">MOA</span>Bind the <span class="hl">50S ribosomal subunit</span> → inhibit bacterial protein synthesis. <strong>Bacteriostatic.</strong></td>
+<td data-label="Indication"><span class="sub">Coverage</span>Community-acquired respiratory infections, sinusitis, otitis, pharyngitis/tonsillitis, prevention/treatment of <strong>MAC</strong>. Also cover the <strong>atypicals</strong>: <span class="hl">Legionella, Mycoplasma, Chlamydia</span>.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span>Erythromycin: upper abdominal pain, bloating, nausea (worst GI offender of the three).<br><span class="sub">Serious ADE</span><strong>QT prolongation</strong> — class-wide cardiac risk.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Azithromycin 1g single dose</strong> = DOC for Chlamydia trachomatis.</li><li><strong>Clarithromycin + PPI + amoxicillin</strong> = treatment for active duodenal ulcer from H. pylori.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 14 ============ -->
+<div class="chart-wrap" id="s14">
+<table class="chart">
+<tr class="title-row"><td colspan="5">14. Lincosamides — Clindamycin</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Clindamycin</td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-positive and anaerobes</span> — NOT gram-negatives.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span><strong>More strongly associated with C. diff colitis than other antibiotics</strong> — the single highest-yield fact about this drug.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>One of the 3 drugs used for Community-Acquired MRSA skin infections (along with Doxycycline and Bactrim — see Sections 11 &amp; 15).</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 15 ============ -->
+<div class="chart-wrap" id="s15">
+<table class="chart">
+<tr class="title-row"><td colspan="5">15. Sulfonamides</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Sulfonamides — General</td>
+<td data-label="MOA"><span class="sub">MOA</span>Compete with <span class="hl">PABA</span>, preventing bacterial <strong>folate synthesis</strong>.</td>
+<td data-label="Indication">—</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Folate-synthesis blockade is the mechanistic thread tying this whole class together.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Sulfamethoxazole/Trimethoprim <span class="generic">Bactrim</span></td>
+<td data-label="MOA"><span class="sub">Dosing</span>Dosed based on the <span class="hl">trimethoprim</span> component.</td>
+<td data-label="Indication"><span class="sub">Coverage</span>UTIs; Community-Acquired MRSA skin infections (with Clindamycin, Doxycycline). <strong>DOC for PCP (Pneumocystis jirovecii, formerly Pneumocystis carinii) prophylaxis</strong> — e.g., transplant/BMT patients, dosed <strong>3x/week</strong> — and treatment of active PCP in AIDS or other immunocompromised states.</td>
+<td data-label="ADE/CIs"><span class="sub">ADE</span>Hypersensitivity reactions: rash, angioedema, <strong>Stevens-Johnson syndrome, toxic epidermal necrolysis</strong>.<br><strong>Hemolytic anemia</strong> in patients with <strong>G6PD deficiency</strong>.<br><strong>Newborns:</strong> sulfas can displace bilirubin → <strong>kernicterus</strong>.</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Three separate high-yield ADEs to keep straight: <strong>SJS/TEN</strong>, <strong>G6PD hemolysis</strong>, and <strong>newborn kernicterus</strong> — each has a different trigger population.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Silver Sulfadiazine <span class="generic">Silvadene</span> &amp; Mafenide <span class="generic">Sulfamylon</span></td>
+<td data-label="MOA"><span class="sub">Form</span>Topical cream/solution.</td>
+<td data-label="Indication"><span class="sub">Use</span><strong>Prevention and treatment of infection in 2nd and 3rd degree burns.</strong></td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Burn-unit staple — sulfa-based, so keep sulfa allergy in mind.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<!-- ============ SECTION 16 ============ -->
+<div class="chart-wrap" id="s16">
+<table class="chart">
+<tr class="title-row"><td colspan="5">16. Topical Antibiotics</td></tr>
+<tr class="col-head"><td>Med</td><td>MOA / Use</td><td>Indication &amp; Coverage</td><td>ADE, CIs and DDIs</td><td>PEARLS</td></tr>
+
+<tr>
+<td class="med" data-label="Med">Retapamulin 1% <span class="generic">topical ointment</span></td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Staph aureus (including MRSA)</span> and <span class="hl">Strep pyogenes</span>.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>One of the few topicals that reliably covers MRSA.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Mupirocin <span class="generic">topical</span></td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Staph aureus, Strep pyogenes, and MRSA</span>.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Classic use: nasal MRSA decolonization.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Bacitracin</td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-positive</span> bacteria — staphylococci, streptococci, Corynebacterium, anaerobic cocci, clostridia.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>Gram-<strong>positive</strong> only — pairs with polymyxin (gram-negative) to cover both.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Polymyxin</td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-negative</span> organisms.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li>The gram-negative half of the "triple antibiotic" trio.</li></ul></td>
+</tr>
+
+<tr>
+<td class="med" data-label="Med">Neomycin <span class="generic">Neosporin component</span></td>
+<td data-label="MOA">—</td>
+<td data-label="Indication"><span class="sub">Coverage</span><span class="hl">Gram-positive AND gram-negative</span> — the broadest of the topical trio.</td>
+<td data-label="ADE/CIs">—</td>
+<td data-label="PEARLS"><ul class="pearl-list"><li><strong>Bacitracin + Polymyxin + Neomycin = triple antibiotic ointment (Neosporin)</strong> — together they cover gram-positive, gram-negative, and broad-spectrum in one product.</li></ul></td>
+</tr>
+
+</table>
+</div>
+
+<footer>Pharm Exam 1 — Blasinsky Review, fully charted · all 116 cards accounted for · built to match your reference chart style</footer>
+
+</body>
+</html>
